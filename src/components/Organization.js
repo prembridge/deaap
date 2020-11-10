@@ -18,23 +18,99 @@ export class Departments extends Component {
 
             
  async componentDidMount(){
-    var myHeaders = new Headers();
-    myHeaders.append("Authorization", "Bearer acc896cefeb597ce46d7437138e5b732aeec14029ae3392bd441");
-    var requestOptions = {
-      method: 'GET',
-      headers: myHeaders,
-      redirect: 'follow'
-    };
-    fetch("fmi/data/v1/databases/DUE/layouts/Main_Organization/records?_limit=20000", requestOptions)
-      .then(response => response.json())
-      .then(json =>{
-        console.log("json"+ JSON.stringify(json))
-          this.setState({
-           isLoaded:true,
-           items:json,
-    })
-    })
+  var myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+  
+  var raw = JSON.stringify({"username":"prem.kumar@geneza.in","password":"Premkumar777"});
+  
+  var requestOptions = {
+    method: 'POST',
+    headers: myHeaders,
+    body: raw,
+    redirect: 'follow'
+  };console.log("my header..1"+ JSON.stringify(requestOptions))
+  
+  const proxyurl = "https://cors-anywhere.herokuapp.com/";
+  const url = "https://ancient-oasis-01562.herokuapp.com/users"; 
+  await fetch(proxyurl+url, requestOptions)
+  .then (resp => resp.json())
+  .then(result => {
+    var resdata =  result.tokens.idToken;
+    this.setState({currentMoviesArray:resdata})
+    //currentMoviesArray.push(resdata)
+   // console.log(resdata +"data output");
+  } 
+  )
+  .catch(error => console.log('error', error));
+  console.log( this.state.currentMoviesArray +"result in state...............")
+  
+  var myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+  myHeaders.append("Authorization", "Fmid "+this.state.currentMoviesArray);
+  var raw = JSON.stringify({"fmDataSource":[{"database":"DUE","username":"prem.kumar@geneza.in","password":"Premkumar777"}]});
+  var requestOptions = {
+    method: 'POST',
+    headers: myHeaders,
+    body: raw,
+    redirect: 'follow'
+  };
+  fetch("/fmi/data/v1/databases/DUE/sessions", requestOptions)
+    .then(response => response.json())
+    .then(result => {
+      var resultdata = result.response.token
+      var savetoken =localStorage.setItem("token" ,resultdata)
+      var tokenvalue = localStorage.getItem("token")
+      console.log("wht is in it"+tokenvalue)
+        // console.log (this.setState({ bearertoken:localStorage.getItem("token")}))
+        // console.log("this .state"+this.state.bearertoken)
+        
+      console.log(resultdata+"generating bearer")
      
+      
+    })
+      
+    .catch(error => console.log('error', error))
+    
+    setInterval(() =>{
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization",  `Bearer ${localStorage.getItem("token")}`);
+    var requestOptions = {
+    method: 'GET',
+    headers: myHeaders,
+    redirect: 'follow'
+    
+    };
+    fetch("fmi/data/v1/databases/DUE/layouts/Main_Projects/records?_limit=1", requestOptions)
+    .then(res => res.json())
+    .then(json =>{
+    console.log("json"+ JSON.stringify(json))
+    //   this.setState({
+    //    isLoaded:true,
+    //    items:json,
+    // })
+    })
+  
+   }, 780000);
+  
+  
+  var myHeaders = new Headers();
+  myHeaders.append("Authorization",  `Bearer ${localStorage.getItem("token")}`);
+  var requestOptions = {
+  method: 'GET',
+  headers: myHeaders,
+  redirect: 'follow'
+  };
+  fetch("fmi/data/v1/databases/DUE/layouts/Main_Organization/records?_limit=20000", requestOptions)
+  .then(response => response.json())
+  .then(json =>{
+  console.log("json"+ JSON.stringify(json))
+    this.setState({
+     isLoaded:true,
+     items:json,
+  })
+  })
+  
+  
      
 
 }

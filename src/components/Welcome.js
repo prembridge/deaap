@@ -35,7 +35,7 @@ import Login from './Login';
 import Registation from './Registation';
 
 
-const drawerWidth = 240;
+const drawerWidth = 200;
 
 const useStyles = makeStyles((theme) => ({
   drawerPaper: { width: 'inherit' },
@@ -44,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.primary
   },
   appBar: {
+    background:"none",
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
@@ -104,6 +105,8 @@ const useStyles = makeStyles((theme) => ({
 
 
 function Welcome() {
+
+  
   const classes = useStyles();
 
  // const preventDefault = (event) => event.preventDefault();
@@ -128,7 +131,7 @@ const clickevent =() =>{
           [classes.appBarShift]: open,
         })} >
     <Toolbar>
-      <IconButton aria-label="app" color="inherit"
+      <IconButton aria-label="app" color="#eb34c9"
        aria-label="open drawer"
        onClick={handleDrawerOpen}
        edge="start"
@@ -137,8 +140,10 @@ const clickevent =() =>{
        })}>
         <Menu />
       </IconButton>
-      <Typography variant="h6"> Welcome to DUE App </Typography>
-      <Button  onClick = {clickevent}color="inherit">Login</Button>
+      <img style={{width: 50, height: 50}}  src={process.env.PUBLIC_URL + 'images/log.jpg'} />
+      <Typography  style ={{align: "center",flexGrow: 1}} variant="h3"> Welcome to DUE App </Typography>
+      <Typography  style ={{align: "center",flexGrow: 1}}variant="h7"> login </Typography>
+      <Typography  style ={{align: "center",flexGrow: 1}}variant="h7"> Registations </Typography>
     </Toolbar>
   </AppBar>,
     <Router>

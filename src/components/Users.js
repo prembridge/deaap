@@ -2,6 +2,7 @@ import React,{Component} from 'react'
 import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
+//import client from "fm-data-api-client"
 export class Users extends Component {
 
     constructor(props){
@@ -14,9 +15,18 @@ export class Users extends Component {
 
     
 async componentDidMount(){
+  //  client = Filemaker.create({
+  //   name: process.env.CLIENT_NAME,
+  //   database: process.env.DATABASE,
+  //   concurrency: 3,
+  //   server: process.env.SERVER,
+  //   user: process.env.USERNAME,
+  //   password: process.env.PASSWORD,
+  //   usage: process.env.CLIENT_USAGE_TRACKING
+  // });
 setInterval(() =>{
     var myHeaders = new Headers();
-    myHeaders.append("Authorization", "Bearer 730bd2ab4e0e3be4792411959131029b5b2a90880d7bf9377725");
+    myHeaders.append("Authorization", "Bearer f5dad9c6ecea43c9ddac7a6760289b01627aefc45bb9d56bb5e4token ");
     var requestOptions = {
     method: 'GET',
     headers: myHeaders,
@@ -34,7 +44,7 @@ setInterval(() =>{
   
    }, 780000);
 var myHeaders = new Headers();
-myHeaders.append("Authorization", "Bearer 41df77a84a827636d945d3e93e780cac5872d43a7acc35228125");
+myHeaders.append("Authorization", "Bearer f5dad9c6ecea43c9ddac7a6760289b01627aefc45bb9d56bb5e4token ");
 var requestOptions = {
 method: 'GET',
 headers: myHeaders,

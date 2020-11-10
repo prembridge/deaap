@@ -10,60 +10,73 @@ export class Groups extends Component {
         this.state ={
             items:'',
             isLoaded:false,
-            currentMoviesArray:[]
+            currentMoviesArray:[],
+            //bearertoken:'',
         }
     }
 
 
     
 async componentDidMount(){
-  //const 
-//   var myHeaders = new Headers();
-// myHeaders.append("Content-Type", "application/json");
+  
+  var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
 
-// var raw = JSON.stringify({"username":"jacob.sushil@geneza.in","password":"Jacob13sushil"});
+var raw = JSON.stringify({"username":"prem.kumar@geneza.in","password":"Premkumar777"});
 
-// var requestOptions = {
-//   method: 'POST',
-//   headers: myHeaders,
-//   body: raw,
-//   redirect: 'follow'
-// };
-// const proxyurl = "https://cors-anywhere.herokuapp.com/";
-// const url = "https://ancient-oasis-01562.herokuapp.com/users"; 
-// await fetch(proxyurl+url, requestOptions)
-// .then (resp => resp.json())
-// .then(result => {
-//   var resdata =  result.tokens.idToken;
-//   this.setState({currentMoviesArray:resdata})
-//   //currentMoviesArray.push(resdata)
-//  // console.log(resdata +"data output");
-// } 
-// )
-// //.catch(error => console.log('error', error));
-// console.log( this.state.currentMoviesArray +"result in state...............")
+var requestOptions = {
+  method: 'POST',
+  headers: myHeaders,
+  body: raw,
+  redirect: 'follow'
+};console.log("my header..1"+ JSON.stringify(requestOptions))
 
-// var myHeaders = new Headers();
-// myHeaders.append("Content-Type", "application/json");
+const proxyurl = "https://cors-anywhere.herokuapp.com/";
+const url = "https://ancient-oasis-01562.herokuapp.com/users"; 
+await fetch(proxyurl+url, requestOptions)
+.then (resp => resp.json())
+.then(result => {
+  var resdata =  result.tokens.idToken;
+  this.setState({currentMoviesArray:resdata})
+  //currentMoviesArray.push(resdata)
+ // console.log(resdata +"data output");
+} 
+)
+.catch(error => console.log('error', error));
+//console.log( this.state.currentMoviesArray +"result in state...............")
 
-// myHeaders.append("Authorization", "Fmid eyJraWQiOiIya1VScEpvaERlWjJiTGZsXC9CXC9ETjZVVkVMVXZlNUFpRHcwVlFoZ3Q4MFk9IiwiYWxnIjoiUlMyNTYifQ.eyJjdXN0b206Y291bnRyeSI6IklOIiwic3ViIjoiNDMxYTA5NjAtZGE0Yy00NWJmLTk3YjYtNzRkNDY1ZGFhYmVhIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImlzcyI6Imh0dHBzOlwvXC9jb2duaXRvLWlkcC51cy13ZXN0LTIuYW1hem9uYXdzLmNvbVwvdXMtd2VzdC0yX05xa3VaY1hRWSIsInBob25lX251bWJlcl92ZXJpZmllZCI6ZmFsc2UsImN1c3RvbTpwcml2YWN5IjoiMSIsImNvZ25pdG86dXNlcm5hbWUiOiI0MzFhMDk2MC1kYTRjLTQ1YmYtOTdiNi03NGQ0NjVkYWFiZWEiLCJnaXZlbl9uYW1lIjoiamFjb2IiLCJsb2NhbGUiOiJlbi1VUyIsImF1ZCI6IjRsOXJ2bDRtdjVlczFlZXAxcWU5N2NhdXRuIiwiY3VzdG9tOm1hbmFnZWRieSI6IjU5M2IyN2U1LWQ4NGYtNDk0NS1iOWMzLWZlYzUzMGVjZWZhZCIsImV2ZW50X2lkIjoiZTA3YTMwNjEtMDE3Zi00YjI5LTkzMGYtYTk2Y2U2N2EwZjkzIiwidG9rZW5fdXNlIjoiaWQiLCJhdXRoX3RpbWUiOjE2MDI2NzA0ODQsImV4cCI6MTYwMjY3NDA4NCwiaWF0IjoxNjAyNjcwNDg1LCJmYW1pbHlfbmFtZSI6InN1c2hpbCIsImVtYWlsIjoiamFjb2Iuc3VzaGlsQGdlbmV6YS5pbiJ9.b64TBXl-EanhcBCamMR9MjI0jF9Wlt9fTFQYSgJ-f6OIr3_0dPw2M6mvV89CaP5nDg0lsmAzS2PXXgfZqJIsKYJpsVaGtKPonycO9ybrxB9Fb6KwlzWnirlcuX4SlpRdTfobBgJnFDmp-i8dN_-Pqb1hvn4m1b9oMKXnH_So3LbdX9NbfL78cvyMX04bBU6Detip5fF9J8enDKHfDqBD1kMq-KOOxwa2xh3_nC_Ke0opUsRIXlIoJXfI395sQR18ACK_dCMcuIF-_j7amRGbHE8ej8FhRCpBsMFSkQktrOkouYSJ4ea81XFbuonEECwVuLuP9TfXJlqzGzNsYjJzVQ");
-// var raw = "";
-// var requestOptions = {
-//   method: 'POST',
-//   headers: myHeaders,
-//   body: raw,
-//   redirect: 'follow'
-// };
-// fetch("fmi/data/v1/databases/DUE/sessions", requestOptions)
-//   .then(response => response.text())
-//   .then(result => console.log(result+"token generation .."))
-//   .catch(error => console.log('error', error));
-
-
-  setInterval(() =>{
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+myHeaders.append("Authorization", "Fmid "+this.state.currentMoviesArray);
+var raww =  JSON.stringify({"fmDataSource":[{"database":"DUE","username":"prem.kumar@geneza.in","password":"Premkumar777"}]});
+var requestOptions = {
+  method: 'POST',
+  headers: myHeaders,
+  body: raww,
+  redirect: 'follow'
+};
+//console.log(requestOptions,"checking raw")
+fetch("/fmi/data/v1/databases/DUE/sessions", requestOptions)
+  .then(response => response.json())
+  .then(result => {
+    var resultdata = result.response.token
+    var savetoken =localStorage.setItem("token" ,resultdata)
+    var tokenvalue = localStorage.getItem("token")
+   // console.log("wht is in it"+tokenvalue)
+      // console.log (this.setState({ bearertoken:localStorage.getItem("token")}))
+      // console.log("this .state"+this.state.bearertoken)
+      
+    //console.log(resultdata+"generating bearer")
+   
+    
+  })
+    
+  .catch(error => console.log('error', error))
+  
+setInterval(() =>{
     var myHeaders = new Headers();
    
-    myHeaders.append("Authorization", "Bearer 3d7a7f07efa45accd3373c6de34ac4de4320968df84e6f67ae44");
+    myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
     
     var requestOptions = {
     method: 'GET',
@@ -83,19 +96,16 @@ async componentDidMount(){
    }, 780000);
 
 
-
-
-
-
-  
+console.log(localStorage.getItem("token") + "token bearer from state")
 var myHeaders = new Headers();
-myHeaders.append("Authorization", "Bearer 3d7a7f07efa45accd3373c6de34ac4de4320968df84e6f67ae44");
-myHeaders.append('Access-Control-Allow-Origin', '*');
+myHeaders.append("Authorization", `Bearer ${localStorage.getItem("token")}`);
+//console.log("checking"+(myHeaders))
 var requestOptions = {
 method: 'GET',
 headers: myHeaders,
 redirect: 'follow'
 };
+
 fetch("fmi/data/v1/databases/DUE/layouts/Main_Groups/records?_limit=20000", requestOptions)
 .then(response => response.json())
 .then(json =>{

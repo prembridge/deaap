@@ -8,15 +8,71 @@ export class Home extends Component {
         super(props)
         this.state ={
             items:'',
-            isLoaded:false
+            isLoaded:false,
+            currentMoviesArray:[],
         }
     }
 
     
 async componentDidMount(){
+  
+
+  var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({"username":"prem.kumar@geneza.in","password":"Premkumar777"});
+
+var requestOptions = {
+  method: 'POST',
+  headers: myHeaders,
+  body: raw,
+  redirect: 'follow'
+};console.log("my header..1"+ JSON.stringify(requestOptions))
+
+const proxyurl = "https://cors-anywhere.herokuapp.com/";
+const url = "https://ancient-oasis-01562.herokuapp.com/users"; 
+await fetch(proxyurl+url, requestOptions)
+.then (resp => resp.json())
+.then(result => {
+  var resdata =  result.tokens.idToken;
+  this.setState({currentMoviesArray:resdata})
+  //currentMoviesArray.push(resdata)
+ // console.log(resdata +"data output");
+} 
+)
+.catch(error => console.log('error', error));
+console.log( this.state.currentMoviesArray +"result in state...............")
+
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+myHeaders.append("Authorization", "Fmid "+this.state.currentMoviesArray);
+var raw = "";
+var requestOptions = {
+  method: 'POST',
+  headers: myHeaders,
+  body: raw,
+  redirect: 'follow'
+};
+fetch("/fmi/data/v1/databases/DUE/sessions", requestOptions)
+  .then(response => response.json())
+  .then(result => {
+    var resultdata = result.response.token
+    var savetoken =localStorage.setItem("token" ,resultdata)
+    var tokenvalue = localStorage.getItem("token")
+    console.log("wht is in it"+tokenvalue)
+      // console.log (this.setState({ bearertoken:localStorage.getItem("token")}))
+      // console.log("this .state"+this.state.bearertoken)
+      
+    console.log(resultdata+"generating bearer")
+   
+    
+  })
+    
+  .catch(error => console.log('error', error))
+  
   setInterval(() =>{
   var myHeaders = new Headers();
-  myHeaders.append("Authorization", "Bearer 7003a08a8fa82104f0f2f51b9e01a166759f598b918b6b7d42d6");
+  myHeaders.append("Authorization",  `Bearer ${localStorage.getItem("token")}`);
   var requestOptions = {
   method: 'GET',
   headers: myHeaders,
@@ -37,7 +93,7 @@ async componentDidMount(){
 
 
 var myHeaders = new Headers();
-myHeaders.append("Authorization", "Bearer 7003a08a8fa82104f0f2f51b9e01a166759f598b918b6b7d42d6");
+myHeaders.append("Authorization",  `Bearer ${localStorage.getItem("token")}`);
 var requestOptions = {
 method: 'GET',
 headers: myHeaders,
@@ -58,7 +114,7 @@ console.log("json"+ JSON.stringify(json))
 }
     render(){
       var {isLoaded,items }= this.state;
-console.log("iteam having respones"+ JSON.stringify(items))
+console.log("iteam having respones...."+ JSON.stringify(items))
       if (!isLoaded){
           return <div>Loading...</div>
       }
@@ -71,7 +127,8 @@ console.log("iteam having respones"+ JSON.stringify(items))
           {/* <Card border="primary " style={{ width: '20rem' }}> */}
    
               {items.response.data.map(item => (<li key ={item.fieldData.data_id}>
-                   <CardMedia style={styles.media} image={item.fieldData.Image} />
+                   <CardMedia style={styles.media} 
+                   image= {item.fieldData.Image_link_picture} />
                  
                  <Typography >Project ID:{item.fieldData.data_Id_}</Typography>
                  <Typography>
