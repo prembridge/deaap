@@ -32,7 +32,7 @@ export class Departments extends Component {
   
   const proxyurl = "https://cors-anywhere.herokuapp.com/";
   const url = "https://ancient-oasis-01562.herokuapp.com/users"; 
-  await fetch(proxyurl+url, requestOptions)
+  await fetch(url, requestOptions)
   .then (resp => resp.json())
   .then(result => {
     var resdata =  result.tokens.idToken;
