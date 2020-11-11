@@ -81,6 +81,7 @@ export class Departments extends Component {
     redirect: 'follow'
     
     };
+    
     fetch("https://truelife.account.filemaker-cloud.com/fmi/data/v1/databases/DUE/layouts/Main_Projects/records?_limit=1", requestOptions)
     .then(res => res.json())
     .then(json =>{
@@ -101,7 +102,9 @@ export class Departments extends Component {
   headers: myHeaders,
   redirect: 'follow'
   };
-  fetch("https://truelife.account.filemaker-cloud.com/fmi/data/v1/databases/DUE/layouts/Main_Organization/records?_limit=20000", requestOptions)
+             
+  const uri = "https://truelife.account.filemaker-cloud.com/fmi/data/v1/databases/DUE/layouts/Main_Organization/records?_limit=20000"
+  fetch(proxyurl+uri, requestOptions)
   .then(response => response.json())
   .then(json =>{
   console.log("json"+ JSON.stringify(json))
