@@ -54,7 +54,7 @@ export class Departments extends Component {
     body: raw,
     redirect: 'follow'
   };
-  fetch("/fmi/data/v1/databases/DUE/sessions", requestOptions)
+  fetch("https://truelife.account.filemaker-cloud.com/fmi/data/v1/databases/DUE/sessions", requestOptions)
     .then(response => response.json())
     .then(result => {
       var resultdata = result.response.token
@@ -80,7 +80,7 @@ export class Departments extends Component {
     redirect: 'follow'
     
     };
-    fetch("fmi/data/v1/databases/DUE/layouts/Main_Projects/records?_limit=1", requestOptions)
+    fetch("https://truelife.account.filemaker-cloud.com/fmi/data/v1/databases/DUE/layouts/Main_Projects/records?_limit=1", requestOptions)
     .then(res => res.json())
     .then(json =>{
     console.log("json"+ JSON.stringify(json))
@@ -100,7 +100,7 @@ export class Departments extends Component {
   headers: myHeaders,
   redirect: 'follow'
   };
-  fetch("fmi/data/v1/databases/DUE/layouts/Main_Organization/records?_limit=20000", requestOptions)
+  fetch("https://truelife.account.filemaker-cloud.com/fmi/data/v1/databases/DUE/layouts/Main_Organization/records?_limit=20000", requestOptions)
   .then(response => response.json())
   .then(json =>{
   console.log("json"+ JSON.stringify(json))
