@@ -54,7 +54,8 @@ export class Departments extends Component {
     body: raw,
     redirect: 'follow'
   };
-  fetch("https://truelife.account.filemaker-cloud.com/fmi/data/v1/databases/DUE/sessions", requestOptions)
+  const uurl = "https://truelife.account.filemaker-cloud.com/fmi/data/v1/databases/DUE/sessions"
+  fetch(proxyurl+uurl, requestOptions)
     .then(response => response.json())
     .then(result => {
       var resultdata = result.response.token
